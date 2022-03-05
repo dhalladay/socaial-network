@@ -11,7 +11,7 @@ const {
 
 // /api/users
 router
-  .router('/')
+  .route('/')
   .get(getAllUsers)
   .post(createUser);
 
@@ -25,3 +25,5 @@ router
   .route('/:userId/freinds/:friendId')
   .post(addFriend)
   .delete(deleteFriend)
+
+  module.exports = router;
