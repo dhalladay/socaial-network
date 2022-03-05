@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/dhalladay/socaial-network/issues"
   },
-  "homepage": "https://github.com/dhalladay/socaial-network#readme"
+  "homepage": "https://github.com/dhalladay/socaial-network#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.4"
+  }
 }
