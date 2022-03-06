@@ -9,22 +9,29 @@ const {
  deleteReaction
 } = require('../../controllers/thought-controller')
 
-// /api/thoughts
+// Thought routes use /api/thoughts
+
+// GET ALL THOUGHTS
 router
   .route('/')
   .get(getAllThoughts)
-  .post(createThought);
 
+// Individual thought routes
 router
   .route('/:id')
+  .post(createThought)
   .get(getThoughtById)
   .put(updateThought)
   .delete(deleteThought);
 
+// The reaction routes use /api/thoughts/:thoughtId/reactions
+
+// add reaction
 router
   .route('/:thoughtId/reactions')
   .post(addReaction);
 
+// delete reaction
 router
   .route('/:thoughtId/reactions/:reactionId')
   .delete(deleteReaction);

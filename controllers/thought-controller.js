@@ -22,7 +22,7 @@ const thoughtController = {
   getThoughtById({ params }, res) {
     Thought.findOne({ _id: params.id })
       .populate({
-        path: 'reaction',
+        path: 'reactions',
         select: '-__v'
       })
       .select('-__v')
@@ -37,8 +37,9 @@ const thoughtController = {
   createThought({ params, body }, res) {
     Thought.create(body)
       .then(({ _id }) => {
-        return User.findByIdAndUpdate(
-          { _id: params.userId },
+        console.log("++++++++++++++", _id, params);
+        return User.findOneAndUpdate(
+          { _id: params.id },
           { $push: { thoughts: _id } },
           { new: true }
         );
@@ -48,6 +49,7 @@ const thoughtController = {
           res.status(404).json({ message: 'No thought found with this id!' });
           return;
         }
+        res.json(dbThoughtData);
       })
       .catch(err => res.json(err));
   },
@@ -67,7 +69,7 @@ const thoughtController = {
 
   // delete thought
   deleteThought({ params }, res) {
-    Thought.findOneAndDelete({ _id: params.thoughtId })
+    Thought.findOneAndDelete({ _id: params.id })
       .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => res.json(err));
   },
@@ -76,10 +78,8 @@ const thoughtController = {
   // post
   // findOneAndUpdateid: params.getThoughtById#push reaction:
   addReaction({ params, body }, res) {
-    console.log(params);
     Thought.findOneAndUpdate(
-      { _id: params.id },
-      // { _id: params.ThoughtId },
+      { _id: params.thoughtId },
       { $addToSet: { reactions: body } },
       { new: true, runValidators: true }
     )
@@ -95,9 +95,8 @@ const thoughtController = {
   // delete
   deleteReaction({ params }, res) {
     Thought.findOneAndUpdate(
-      { _id: params.id },
-      // { _id: params.ThoughtId },
-      { $pull: { reactions: params.reactionId } },
+      { _id: params.thoughtId },
+      { $pull: { reactions: { reactionId: params.reactionId } } },
       { new: true }
     )
       .then(dbThoughtData => res.json(dbThoughtData))
