@@ -27,7 +27,7 @@ You will need insomnia or another type of API client to see the connections.
 
 Once the code has been downloaded and packages installed, start the server by invoking "npm start" in the command line.
 
-The following [video](https://youtu.be/pcEWMltg7jQ) shows the use of this api with Insomnia
+The following [video](https://youtu.be/mX2ey3ZK65o) shows the use of this api with Insomnia
 
 ## Languages
 
